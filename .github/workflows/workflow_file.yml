@@ -1,0 +1,43 @@
+name: TS-HGD Link Analyzer
+
+on:
+  schedule:
+    # Every 14th day of the month at 00:00 UTC (every two weeks)
+    - cron: '0 0 */14 * *'
+  push:
+    branches: [ main ]
+
+
+jobs:
+  update-and-upload:
+    runs-on: ubuntu-24.04
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python environment
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # Step 3: Install dependencies
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          mkdir out
+
+      # Step 4: Run the Python script
+      - name: Run Script
+        run: python main.py
+
+      # Step 5: Upload JSON as Artifact
+      - name: Upload JSON Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: overall-json
+          path: out/
+          retention-days: 14
