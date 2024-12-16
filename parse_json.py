@@ -79,6 +79,12 @@ def get_parse_and_save(test_mode=False, add_sub_links=False):
     for each_year in each_year_links:
         save_to_json(each_year_links[each_year], "out/year_{}.json".format(each_year))
 
+def print_summary():
+    with open("out/overall.json", 'r') as json_file:
+        data = json.load(json_file)
+        for each_data in data["urls"]:
+            print("{}:{}".format(each_data, data["urls"][each_data]["count"]))
+
 # # Added for testing purposes, should not be run in project
 # if __name__ == '__main__':
 #     get_parse_and_save(test_mode=True)
