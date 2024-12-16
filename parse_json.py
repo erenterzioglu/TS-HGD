@@ -19,13 +19,11 @@ def check_add_link(dict, link, add_sub_links=True):
         # Create new JSON format for hostname
         if add_sub_links == True:
             dict[hostname] = {
-                "url": hostname,
                 "count": 1,
                 "sub_urls": [link]
             }
         else:
             dict[hostname] = {
-                "url": hostname,
                 "count": 1
             }
 
@@ -47,10 +45,7 @@ def process_links(json_file, add_sub_links=True):
     return overall_links_dict, each_year_links_dict
 
 def save_to_json(url_dict, json_path):
-    # Conver dict to JSON
-    urls_list = list(url_dict.values())
-    # List in decreasing order according to count variable
-    sorted_urls = sorted(urls_list, key=lambda x: x['count'], reverse=True)
+    sorted_urls = dict(sorted(url_dict.items(), key=lambda item: item[1]['count'], reverse=True))
 
     data = {"urls": sorted_urls}
 
