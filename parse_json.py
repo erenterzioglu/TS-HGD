@@ -27,7 +27,7 @@ def check_add_link(dict, link, add_sub_links=True):
                 "count": 1
             }
 
-def process_links(json_file, add_sub_links=True):
+def process_links(json_file, add_sub_links=False):
     overall_links_dict = {}
     each_year_links_dict = {}
     year = 0
@@ -67,12 +67,12 @@ def get_json(test_mode=False):
             #print(data)
             return data
 
-def get_parse_and_save(test_mode=False):
+def get_parse_and_save(test_mode=False, add_sub_links=False):
     json_file = get_json(test_mode=test_mode)
     overall_links = {}
     each_year_links = {}
 
-    overall_links, each_year_links = process_links(json_file)
+    overall_links, each_year_links = process_links(json_file, add_sub_links)
 
     # Create artifact files
     save_to_json(overall_links, "out/overall.json")
