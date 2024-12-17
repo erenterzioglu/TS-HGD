@@ -2,8 +2,8 @@ name: TS-HGD Link Analyzer
 
 on:
   schedule:
-    # Every 14th day of the month at 00:00 UTC (every two weeks)
-    - cron: '0 0 */14 * *'
+    # Every 7th day of the month at 00:00 UTC (every week)
+    - cron: '0 0 */7 * *'
   push:
     branches: [ main ]
 
